@@ -1,3 +1,4 @@
+#pragma once
 
 #define null NULL
 
@@ -10,3 +11,9 @@
 #define NO 0
 
 #define unused __attribute__((unused))
+
+typedef enum
+{
+    false,
+    true
+} bool;

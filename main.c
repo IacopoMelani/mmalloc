@@ -1,8 +1,10 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "core/types/types.h"
 
 #include "core/alloc/mmalloc.h"
+#include "core/registry/registry.h"
 
 int main()
 {
@@ -18,6 +20,8 @@ int main()
     int *z = mmalloc(sizeof(int), "zero int");
 
     z = mrealloc(z, 0, "zero int");
+
+    registry_cap();
 
     return 0;
 }
