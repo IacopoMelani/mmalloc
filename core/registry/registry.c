@@ -5,6 +5,7 @@
 static struct RegistryAlloc *add_registry_alloc(struct RegistryAlloc *registry, size_t size, void *mem_alloc_ptr, const char *context);
 static struct RegistryAlloc *create_registy_alloc(size_t size, void *mem_alloc_ptr, const char *context);
 static struct RegistryAlloc *delete_registy_alloc(struct RegistryAlloc *registry, void *mem_alloc_ptr);
+static void print_registy_alloc(struct RegistryAlloc *registry);
 
 struct RegistryAlloc
 {
@@ -16,7 +17,12 @@ struct RegistryAlloc
 
 struct RegistryAlloc *registry;
 
-unsigned int registry_cap()
+void registry_clear_alloc(void *mem_alloc_ptr)
+{
+    registry = delete_registy_alloc(registry, mem_alloc_ptr);
+}
+
+unsigned int registry_len()
 {
     struct RegistryAlloc *pivot;
     unsigned int cap = 0;
@@ -35,9 +41,21 @@ unsigned int registry_cap()
     return cap;
 }
 
-void registry_clear_alloc(void *mem_alloc_ptr)
+void registry_print_alloc(void)
 {
-    delete_registy_alloc(registry, mem_alloc_ptr);
+    struct RegistryAlloc *pivot;
+
+    pivot = registry;
+
+    printf("\nTotal alloc: %u", registry_len());
+
+    while (pivot != NULL)
+    {
+        print_registy_alloc(pivot);
+        pivot = pivot->next;
+    }
+
+    printf("\n");
 }
 
 bool registry_write_alloc(size_t size, void *mem_alloc_ptr, const char *context)
@@ -114,4 +132,12 @@ static struct RegistryAlloc *delete_registy_alloc(struct RegistryAlloc *registry
     registry->next = delete_registy_alloc(registry->next, mem_alloc_ptr);
 
     return registry;
+}
+
+static void print_registy_alloc(struct RegistryAlloc *registry)
+{
+    printf("\n");
+    printf("\n ---- ALLOC MEMORY LEAK %p ----", registry->mem_alloc_ptr);
+    printf("\ncontext: %s", registry->context);
+    printf("\nsize: %ld", registry->size);
 }

@@ -21,7 +21,7 @@ int main()
 
     z = mrealloc(z, 0, "zero int");
 
-    registry_cap();
+    registry_print_alloc();
 
     return 0;
 }
