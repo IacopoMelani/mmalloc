@@ -3,6 +3,7 @@
 #include <stddef.h>
 
 #include "../types/types.h"
+#include "../registry/registry.h"
 
 /* free and print deallocated context */
 extern void mfree(void *ptr, unused const char *context);

@@ -4,12 +4,14 @@
 
 #include "../types/types.h"
 
-struct RegistryAlloc;
-
+/* clears the registry alloc */
 extern void registry_clear_alloc(void *mem_alloc_ptr);
 
+/* returns the current legth of the registry alloc */
 extern unsigned int registry_len();
 
+/* prints the complete information about actual registry alloc */
 extern void registry_print_alloc(void);
 
+/* writes to registry alloc a new allocation */
 extern bool registry_write_alloc(size_t size, void *mem_alloc_ptr, const char *context);

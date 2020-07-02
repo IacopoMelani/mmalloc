@@ -1,10 +1,5 @@
-#include <stdlib.h>
-#include <stdio.h>
-
-#include "core/types/types.h"
 
 #include "core/alloc/mmalloc.h"
-#include "core/registry/registry.h"
 
 int main()
 {
