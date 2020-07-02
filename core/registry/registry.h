@@ -8,7 +8,10 @@
 extern void registry_clear_alloc(void *mem_alloc_ptr);
 
 /* returns the current legth of the registry alloc */
-extern unsigned int registry_len();
+extern unsigned int registry_len(void);
+
+/* returns the total size allocated */
+extern size_t registry_total_size(void);
 
 /* prints the complete information about actual registry alloc */
 extern void registry_print_alloc(void);

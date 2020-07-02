@@ -22,7 +22,7 @@ void registry_clear_alloc(void *mem_alloc_ptr)
     registry = delete_registy_alloc(registry, mem_alloc_ptr);
 }
 
-unsigned int registry_len()
+unsigned int registry_len(void)
 {
     struct RegistryAlloc *pivot;
     unsigned int cap = 0;
@@ -41,13 +41,32 @@ unsigned int registry_len()
     return cap;
 }
 
+size_t registry_total_size(void)
+{
+    struct RegistryAlloc *pivot;
+    size_t tot = 0;
+
+    pivot = registry;
+
+    if (pivot != NULL)
+    {
+        while (pivot != NULL)
+        {
+            tot += pivot->size;
+            pivot = pivot->next;
+        }
+    }
+
+    return tot;
+}
+
 void registry_print_alloc(void)
 {
     struct RegistryAlloc *pivot;
 
     pivot = registry;
 
-    printf("\nTotal alloc: %u", registry_len());
+    printf("\nTotal alloc: %u, Total size allocated: %ld", registry_len(), registry_total_size());
 
     while (pivot != NULL)
     {
